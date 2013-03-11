@@ -28,7 +28,7 @@ public class RandomDataSpout extends BaseRichSpout {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields(FIELD_FILENAME, FIELD_CONTENT));
+        declarer.declare(new Fields(FIELD_CONTENT));
     }
 
     @Override
@@ -43,7 +43,12 @@ public class RandomDataSpout extends BaseRichSpout {
     }
     @Override
     public void nextTuple() {
-        _collector.emit(new Values(UUID.randomUUID().toString()));
+        _collector.emit(new Values(UUID.randomUUID().toString()), UUID.randomUUID().toString());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            log.error(e);
+        }
     }
 
     public static String FIELD_FILENAME = "filename";
