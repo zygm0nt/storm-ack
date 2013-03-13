@@ -30,6 +30,7 @@ public class SplittingBolt extends BaseRichBolt {
             _collector.emit(tuple, new Values(new Date(), counter, "" + c));
             counter++;
         }
+        _collector.ack(tuple);
     }
 
     @Override
